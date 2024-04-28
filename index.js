@@ -38,6 +38,7 @@ async function run() {
     const database = client.db("artDB");
     const allArtCollection = database.collection("allArtCollection");
     //allArt
+    
     app.post('/all-arts',async (req,res)=>{
         const art = req.body;
         const result =await allArtCollection.insertOne(art)
@@ -54,6 +55,12 @@ async function run() {
         const id = req.params.id
         const query={_id: new ObjectId(id)}
         const result = await allArtCollection.findOne(query)
+        res.send(result)
+    })
+
+    app.get('/my-arts/:email',async(req,res)=>{
+        console.log(req.params.email)
+        const result =await allArtCollection.find({userEmail:req.params.email}).toArray()
         res.send(result)
     })
 
