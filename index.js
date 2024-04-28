@@ -43,6 +43,12 @@ async function run() {
         const result =await allArtCollection.insertOne(art)
         res.send(result)
     })
+    
+    app.get('/all-arts',async(req,res)=>{
+        const cursor = allArtCollection.find()
+        const result = await cursor.toArray()
+        res.send(result)
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
