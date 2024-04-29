@@ -37,6 +37,25 @@ async function run() {
     await client.connect();
     const database = client.db("artDB");
     const allArtCollection = database.collection("allArtCollection");
+    const subCategoryCollection = database.collection("subCategoryCollection");
+    const bannerDataCollection = database.collection("bannerDataCollection");
+    const subCategoryCardCollection = database.collection("subCategoryCardCollection");
+    //sub category data.
+    app.get('/all-sub-category',async(req,res)=>{
+      const cursor = subCategoryCollection.find()
+      const result = await cursor.toArray()
+      res.send(result)
+  })
+  app.post('/all-sub-category',async (req,res)=>{
+    const art = req.body;
+    const result =await subCategoryCollection.insertOne(art)
+    res.send(result)
+})
+app.get('/my-sub-category/:subCategory',async(req,res)=>{
+  console.log(req.params.subCategory)
+  const result =await subCategoryCollection.find({subCategoryId :req.params.subCategory}).toArray()
+  res.send(result)
+})
     //allArt
     
     app.post('/all-arts',async (req,res)=>{
