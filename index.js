@@ -56,6 +56,12 @@ app.get('/my-sub-category/:subCategory',async(req,res)=>{
   const result =await subCategoryCollection.find({subCategoryId :req.params.subCategory}).toArray()
   res.send(result)
 })
+app.get('/all-sub-category/:id',async(req,res)=>{
+  const id =req.params.id
+  const query = {_id: new ObjectId(id)}
+  const result = await subCategoryCollection.findOne(query)
+  res.send(result)  
+})
     //allArt
     
     app.post('/all-arts',async (req,res)=>{
