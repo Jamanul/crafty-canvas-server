@@ -40,6 +40,18 @@ async function run() {
     const subCategoryCollection = database.collection("subCategoryCollection");
     const bannerDataCollection = database.collection("bannerDataCollection");
     const subCategoryCardCollection = database.collection("subCategoryCardCollection");
+    //banner section
+    app.get('/all-banner-data',async(req,res)=>{
+      const cursor = bannerDataCollection.find()
+      const result = await cursor.toArray()
+      res.send(result)
+  })
+
+  app.post('/all-banner-data',async (req,res)=>{
+    const art = req.body;
+    const result =await bannerDataCollection.insertOne(art)
+    res.send(result)
+})
 
     //sub-category-card
     app.get('/all-sub-category-card',async(req,res)=>{
